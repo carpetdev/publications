@@ -227,7 +227,7 @@ sudo ln -s /usr/lib/systemd/system/systemd-suspend-then-hibernate.service /etc/s
 
 ### Configure suspend then hibernate:
 
-You can edit `sleep.conf` for your own taste. As an example, in order to configure Steam Deck to go to hibernation **after 6 hours of sleep** you can use the following command to overwrite the config:
+You can edit `sleep.conf` for your own taste. As an example, in order to configure Steam Deck to go to hibernation **after 1 hour of sleep** you can use the following command to overwrite the config:
 
 ```bash
 # this command will create or overwrite the existing file
@@ -236,10 +236,10 @@ AllowSuspend=yes
 AllowHibernation=yes
 AllowSuspendThenHibernate=yes
 HibernateDelaySec=60min
-' > /etc/systemd/sleep.conf
+' > /etc/systemd/sleep.conf.d/z-override.conf
 ```
 
-**NOTE:** this file may be overwritten by system updates.
+**NOTE:** See https://github.com/nazar256/publications/issues/4 for information on how system updates affect this. We need to apply this override as a recent update has another override disabling hibernation ("z-" here makes sure this override takes priority).
 
 Since system drains almost 1% per hour, for me subjectively I found the most reasonable value to sleep 60 minutes before entering hibernation. You can put any time which works for you. As for me, 60 minutes is the time I most likely need to resume very quickly to the game. After an hour, a day or week I'm fine waiting around 25 seconds to resume from hibernation.
 
